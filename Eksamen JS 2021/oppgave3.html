@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Oppgave 3 - Middelalderbygninger</title>
+  </head>
+  <body>
+    <!-- Det er lov å endre/legge til HTML -->
+
+    <h1>Middelalderbygninger</h1>
+    <p>
+      Lyst til å bo i en middelalderbygning? Vi har de beste
+      middelalderbygningene! :)
+    </p>
+
+    <input id="show-all-btn" type="button" value="Vis alle" />
+
+    <hr />
+
+    <label>Minimum pris</label>
+    <input type="text" id="min-price-txt" />
+    <label>Maksimum pris</label>
+    <input type="text" id="max-price-txt" />
+    <input type="button" value="Vis etter pris" id="show-by-price-btn" />
+
+    <hr />
+
+    <!-- Hint: Å hente value fra valgt <option> fungerer på samme måte som å hente value fra en tekstboks -->
+    <select id="category-select">
+      <!-- Du endrer på options for å tilpasse til din løsning -->
+      <option value="Velg Kategori">-- Velg Kategori --</option>
+      <option value="House">House</option>
+      <option value="2 Floor House">2 Floor House</option>
+      <option value="Castle">Castle</option>
+    </select>
+    <input type="button" value="Vis etter kategori" id="show-by-category-btn" />
+
+    <hr />
+
+    <div id="output-div"></div>
+
+    <script>
+      // Variabler med HTML-objekter  
+      var categoryTxt = document.getElementById("category-select");
+      var minPriceTxt = document.getElementById("min-price-txt");
+      var maxPriceTxt = document.getElementById("max-price-txt");
+      var outputDiv = document.getElementById("output-div");
+      var showAllBtn = document.getElementById("show-all-btn");
+      var showByPriceBtn = document.getElementById("show-by-price-btn");
+      var showByCategoryBtn = document.getElementById("show-by-category-btn");
+
+      //Object Literal med informasjon om bygningene
+      medievalBuildingArray = [
+        {
+          name: "Wide house",
+          price: 130,
+          imageName: "building-1.png",
+          category: "House",
+        },
+        {
+          name: "Small house",
+          price: 100,
+          imageName: "building-2.png",
+          category: "House",
+        },
+        {
+          name: "Big house",
+          price: 179,
+          imageName: "building-3.png",
+          category: "2 Floor House",
+        },
+        {
+          name: "Apartments",
+          price: 229,
+          imageName: "building-4.png",
+          category: "2 Floor House",
+        },
+        {
+          name: "Nice Castle",
+          price: 299,
+          imageName: "building-5.png",
+          category: "Castle",
+        },
+        {
+          name: "Castle",
+          price: 269,
+          imageName: "building-6.png",
+          category: "Castle",
+        },
+      ];
+
+      //Ny variabel som er lengden av object-literal
+      var numberOfBuildings = medievalBuildingArray.length;
+
+      //Funsjoner, mye av lik oppbygning men med forskjellige betingelser.  
+      function showBuildingByPrice() {
+        var updateCategory = "";
+        var minPrice = minPriceTxt.value;
+        var maxPrice = maxPriceTxt.value;
+        if (minPrice == 0 && maxPrice == 0) {
+          alert("Du må taste inn beløp");
+        } else if (minPrice == 300) {
+          alert("For høyt minimums beløp ");
+        }
+        for (var i = 0; i < numberOfBuildings; i++) {
+          if (
+            medievalBuildingArray[i].price >= minPrice &&
+            medievalBuildingArray[i].price <= maxPrice
+          ) {
+            updateCategory += `
+                <article>
+                    <h2>Name: ${medievalBuildingArray[i].name}</h3>
+                    <p>Price: ${medievalBuildingArray[i].price}$</p>
+                    <img src="images/${medievalBuildingArray[i].imageName}" />
+                    <p>Category: ${medievalBuildingArray[i].category}</p>
+                </article>`;
+          }
+        }
+        outputDiv.innerHTML = updateCategory;
+      }
+
+      function showAllBuilding() {
+        var updateCategory = "";
+        for (var i = 0; i < numberOfBuildings; i++) {
+          updateCategory += `
+            <article>
+                <h2>Name: ${medievalBuildingArray[i].name}</h3>
+                <p>Price: ${medievalBuildingArray[i].price}$</p>
+                <img src="images/${medievalBuildingArray[i].imageName}" />
+                <p>Category: ${medievalBuildingArray[i].category}</p>
+            </article>`;
+        }
+        outputDiv.innerHTML = updateCategory;
+      }
+
+      function showBuildingByCategory() {
+        var searchByCategory = categoryTxt.value;
+        var updateCategory = "";
+        if (searchByCategory === "Velg Kategori") {
+          alert("Velg et gyldig alternativ");
+        } else {
+          for (var i = 0; i < numberOfBuildings; i++) {
+            if (searchByCategory === medievalBuildingArray[i].category) {
+              updateCategory += `
+                <article>
+                    <h2>Name: ${medievalBuildingArray[i].name}</h3>
+                    <p>Price: ${medievalBuildingArray[i].price}</p>
+                    <img src="images/${medievalBuildingArray[i].imageName}" />
+                    <p>Category: ${medievalBuildingArray[i].category}</p>
+                </article>`;
+            }
+          }
+        }
+        outputDiv.innerHTML = updateCategory;
+      }
+      
+      // Events
+      showByPriceBtn.onclick = showBuildingByPrice;
+      showByCategoryBtn.onclick = showBuildingByCategory;
+      showAllBtn.onclick = showAllBuilding;
+    </script>
+  </body>
+</html>

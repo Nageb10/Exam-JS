@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Oppgave 4 - Student 1</title>
+  </head>
+  <body>
+    <h1>Minibank</h1>
+    <label>Tast inn Pin Kode</label>
+    <input type="text" id="pin-txt" />
+    <input type="button" id="verified-pin" value="Enter" />
+    <div id="output-div"></div>
+    <div id="money-in-bank">
+    <label>Amount to withdraw</label>
+    <input type="text" id="amount-withdraw-txt">
+    <input type="button" id="withdraw-money-btn" value="Withdraw">
+    <div id="money-out"></div>
+    <div>
+    <script>
+
+      // Variabler  
+      var pinTxt = document.getElementById("pin-txt");
+      var amountWithdrawTxt = document.getElementById("amount-withdraw-txt");
+      var moneyOut = document.getElementById("money-out");
+      var displayMoneyInBank = document.getElementById("money-in-bank");
+      var pictures = `<img src="images/fem-hundre-kroner.png" />`;  
+      var outputDiv = document.getElementById("output-div");
+      var withdrawMoneyBtn = document.getElementById("withdraw-money-btn");
+      var verifyPinBtn = document.getElementById("verified-pin");
+  
+
+      //Gjemme HTML Objekter til riktig passord er skrevet
+      displayMoneyInBank.style.display = 'none';
+
+      // Funksjoner  
+        function moneyInBank(){
+            displayMoneyInBank.style.display = 'block'
+            for(var i = 0; i < 4; i++){
+                outputDiv.innerHTML += pictures;
+            }
+        }
+
+      function AccessMoney() {
+          var rightPin = 1111;
+          var pin = pinTxt.value;
+          if (pin == rightPin) {
+            outputDiv.innerHTML = "";
+           moneyInBank();
+            } else {
+              outputDiv.innerHTML = `Dessverre er det feil`;
+            }
+        }
+
+        function withDraw(){
+            var amountWithDraw = amountWithdrawTxt.value;
+            if(amountWithDraw == 500){
+                moneyOut.innerHTML = "";
+                for(var i = 0; i < 1; i++){
+                    moneyOut.innerHTML += pictures;
+                }
+            }if (amountWithDraw == 1000){
+                moneyOut.innerHTML = "";
+                for(var i = 0; i < 2; i++){
+                    moneyOut.innerHTML += pictures;
+                }
+            }if (amountWithDraw == 1500){
+                moneyOut.innerHTML = "";
+                for(var i = 0; i < 3; i++){
+                    moneyOut.innerHTML += pictures;
+                }
+            }if (amountWithDraw == 2000){
+                moneyOut.innerHTML = "";
+                for(var i = 0; i < 4; i++){
+                    moneyOut.innerHTML += pictures;
+                }
+            }
+        }
+
+        // Events
+        verifyPinBtn.onclick = AccessMoney;
+        withdrawMoneyBtn.onclick = withDraw;
+        
+    </script>
+  </body>
+</html>

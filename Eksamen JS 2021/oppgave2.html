@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Oppgave 2 - Dragracing</title>
+    <link rel="stylesheet" href="css/oppgave2.css" />
+  </head>
+  <body>
+    <h1>Dragracing</h1>
+
+    <div id="road-div"></div>
+
+    <img id="blue-car" src="images/blue-car.png" />
+    <img id="green-car" src="images/green-car.png" />
+    <img id="red-car" src="images/red-car.png" />
+
+    <div id="finish-line"></div>
+
+    <div id="output-div"></div>
+    <input type="button" name="Start Button" id="start-btn" value="Start!" />
+
+    <script>
+      /*I denne oppgaven gikk det meste fint, men det er en feil her, hvor noen ganger får man beskjed at en bil har vunnet, 
+        før noen av bilene har kjørt over målstreken. 
+        Siden første oppgaven min var litt tynn velger jeg å kommentere kodingen her og
+      */
+      //Variabler i bruk fra HTML
+      var blueCar = document.getElementById("blue-car");
+      var greenCar = document.getElementById("green-car");
+      var redCar = document.getElementById("red-car");
+      var outputDiv = document.getElementById("output-div");
+      var startBtn = document.getElementById("start-btn");
+
+      //Styling av startBtn
+      startBtn.style.position = "absolute";
+      startBtn.style.top = "400px";
+      startBtn.style.background = "green";
+      startBtn.style.width = "100px";
+      startBtn.style.height = "100px";
+      /*Her valgte jeg å stilsette knappen siden jeg merket at den var lite synlig siden mange av objektene i denne 
+        filen har position: absolute, som gjør de fritt flytende i nettsiden. Her gir startBtn den en størrelse,
+        hvor den skal være på skjermen og bakgrunssfarge
+      */
+      // Funskjoner
+      function randomSpeed() {
+        return Math.floor(Math.random() * 200);
+      }
+      /*
+      Funsjonen randomSpeed får ett tilfeldig tall-verdi mellom 0 og 200 og return gjør sånn at når vi kaller på funskjonen
+      får vi tilbake verdien av hva som følger etter return i dette tilfellet vil det være "Math.floor(Math.random() * 200)".
+      */
+      function startRace() {
+        var positionBlue = 0;
+        var positionGreen = 0;
+        var positionRed = 0;
+        var race = setInterval(function () {
+          positionBlue += randomSpeed();
+          positionGreen += randomSpeed();
+          positionRed += randomSpeed();
+          blueCar.style.left = positionBlue + "px";
+          greenCar.style.left = positionGreen + "px";
+          redCar.style.left = positionRed + "px";
+
+          if (blueCar.style.left > "700px") {
+            outputDiv.innerHTML = `Blue car is the winner`;
+          }
+          else if (greenCar.style.left > "700px") {
+            outputDiv.innerHTML = `Green car is the winner`;
+          }
+          else if (redCar.style.left > "700px") {
+            outputDiv.innerHTML = `Red car is the winner`;
+          }
+          if (
+            blueCar.style.left > "700px" ||
+            greenCar.style.left > "700px" ||
+            redCar.style.left > "700px"
+          ) {
+            clearInterval(race);
+          }
+        }, 2000);
+      }
+      /*
+      startRace er ryggraden til hva som skjer i denne nettsiden. Her definerer vi først posisjonen til bilene som
+      jeg vil at skal være null, deretter lager vi en verdi for setinterval som også skal være en funksjon.
+      Deretter henter vi posisjonen til bilene som skal være null og plusser det med verdien av randomSpeed som er
+      et tilfeldig tall mellom 0 og 200. Dette får bilene til å bevege seg mot målstreken. For å erklære
+      en vinner bruker vi if-betingelser der vi sier at om en bil går over 700 piksler skal outputdiv printe 
+      bilnavn og at den har vunnet også stopper vi funsjonen race med clearInterval. Dette skal skje hvert 2-sekund.
+      */
+
+      // Events
+      startBtn.onclick = startRace;
+
+    </script>
+  </body>
+</html>

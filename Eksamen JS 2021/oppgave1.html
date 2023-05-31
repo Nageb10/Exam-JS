@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oppgave 1</title>
+    <link rel="stylesheet" type="text/css" href="css/oppgave1.css">
+</head>
+<body>
+
+    <!-- Det er lov å endre/legge til HTML -->
+
+    <h1>Modern Art Maker</h1>
+
+    <label>Bredde</label>    
+    <input id="width-txt" type="text">
+
+    <label>Høyde</label>
+    <input id="height-txt" type="text">
+
+    <hr>
+
+    <label>Farge</label>
+    <input id="background-color-txt" type="text">
+
+    <hr>
+
+    <label>Posisjon fra venstre (left)</label>
+    <input id="left-txt" type="text">
+
+    <label>Posisjon fra toppen (top)</label>
+    <input id="top-txt" type="text">
+
+    <hr>
+
+    <input id="add-box-btn" type="button" value="Legg til">
+
+    <p id="status-p">Antall bokser lagt til: 1</p>
+
+
+    <div id="output-div"></div>
+
+
+    <script>
+        /*
+        I denne oppgaven slet jeg med å forstå hvordan jeg skulle ta i bruk push i et array for å få frem flere
+        "bokser". Jeg bestemte meg for å kode den sånn her for da kan man i alle fall generere bokser, men 
+        desverre er det bare en boks. Jeg slet også med å gjøre standard "top" til 200 px
+        under toppen av skjermen for å slippe at boksene generer uten at de alltid er på 200px i "top"
+        */
+        //Variabler
+        var widthTxt = document.getElementById("width-txt");
+        var heightTxt = document.getElementById("height-txt");
+        var backgroundColorTxt = document.getElementById("background-color-txt");
+        var leftTxt = document.getElementById("left-txt");
+        var topTxt = document.getElementById("top-txt");
+        var addBoxBtn = document.getElementById("add-box-btn");
+        var statusP = document.getElementById("status-p");
+        var outputDiv = document.getElementById("output-div");
+        var box = document.getElementById("box");
+
+        // Funksjoner
+        
+        /*
+        Funksjonen generateBox definerer først variablene og hva de står for, det vi skriver innenfor template literals
+        er at vi skal hente inn verden av hva brukeren skriver inn i tekstboksene og definere det som piksler
+        siden det er sånn css fungerer. i backgroundColor trenger vi ikke det siden da posisjonerer, vi gir den en farge
+        vi de ikke da er ikke piksler eller template literals nødvendig. 
+        */
+        var box = [];
+        /* I variabelen box var tanken å lage en array så jeg kunne bruke .push for å legge inn flere objekter som skulle være
+            flere bokser, men dette fikk jeg ikke til. 
+        */
+        
+        function generateBox (){
+            var width = `${widthTxt.value}px`;
+            var height = `${heightTxt.value}px`;
+            var backgroundColor = backgroundColorTxt.value;
+            var left = `${leftTxt.value}px`;
+            var top  = `${topTxt.value}px`;
+
+
+            outputDiv.style.width = width;
+            outputDiv.style.height = height;
+            outputDiv.style.backgroundColor = backgroundColor;
+            outputDiv.style.left = left;
+            outputDiv.style.top = top;
+        }
+        /*
+        På bunnen av funksjonen generateBox tar vi i bruk hva vi definerte over. der skriver vi at hva som skal
+        bli printet i skjermen har verdien til variablene over som skal bli skrevet inn av brukeren. 
+        */
+        // Events
+        addBoxBtn.onclick = generateBox;
+    
+        //Her sier vi at knappen vi har lagd skal aktivere funksjonen generateBox. Uten å trykke på knappen
+        //har det lite å si hva brukeren skriver for det skjer ingenting før den er trykket.
+
+
+
+    </script>
+    
+    </body>
+</html>
